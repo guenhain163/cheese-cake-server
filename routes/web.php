@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('login', [AuthController::class, 'login'])->name('admin.login');
 
-Route::get('/', function () {
-    return redirect('user');
-//    return view('welcome');
-});
+Route::get('/', [UserController::class, 'show']);
+//Route::get('/', function () {
+//    return redirect('user');
+////    return view('welcome');
+//});

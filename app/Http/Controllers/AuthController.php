@@ -53,7 +53,7 @@ class AuthController extends Controller
 
         $user = User::where("email", $email)->first();
         if ($user == null) {
-            $new_user['password'] = password_hash('6gt7jjyLEYTSxrVA', PASSWORD_BCRYPT);
+            $new_user['password'] = password_hash('aGFja2Zlc3Q=', PASSWORD_BCRYPT);
             $new_user['google_id'] = '';
             $user = new User($new_user);
 
@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         $credentials = [
             "email" => $email,
-            "password" => '6gt7jjyLEYTSxrVA'
+            "password" => 'aGFja2Zlc3Q='
         ];
 
         if (!$token = auth()->attempt($credentials)) {
@@ -105,7 +105,7 @@ class AuthController extends Controller
                 "google_id" => $data["google_id"],
                 "avatar_url" => $data["avatar_url"],
             ];
-            $data['password'] = password_hash('6gt7jjyLEYTSxrVA', PASSWORD_BCRYPT);
+            $data['password'] = password_hash('aGFja2Zlc3Q=', PASSWORD_BCRYPT);
             $user = new User($data);
             $user->save();
             $user->assignRole("free_account");
@@ -115,7 +115,7 @@ class AuthController extends Controller
 
         $credentials = [
             "email" => $email,
-            "password" => '6gt7jjyLEYTSxrVA'
+            "password" => 'aGFja2Zlc3Q='
         ];
 
         return $credentials;
@@ -203,7 +203,7 @@ class AuthController extends Controller
                 "apple_id" => $request["apple_id"],
                 "avatar_url" => $request["avatar_url"],
             ];
-            $data['password'] = password_hash('6gt7jjyLEYTSxrVA', PASSWORD_BCRYPT);
+            $data['password'] = password_hash('aGFja2Zlc3Q=', PASSWORD_BCRYPT);
             $user = new User($data);
             $user->save();
             $user->assignRole("free_account");
@@ -213,7 +213,7 @@ class AuthController extends Controller
 
         $credentials = [
             "email" => $email,
-            "password" => '6gt7jjyLEYTSxrVA'
+            "password" => 'aGFja2Zlc3Q='
         ];
 
         if ($credentials == null || !$token = auth('api')->attempt($credentials)) {
