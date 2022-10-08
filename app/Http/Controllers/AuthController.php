@@ -185,7 +185,7 @@ class AuthController extends ApiController
      */
     public function me()
     {
-        return response()->json(auth('api')->user());
+        return $this->successResponse(auth('api')->user());
     }
 
     /**

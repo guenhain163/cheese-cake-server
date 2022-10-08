@@ -40,12 +40,14 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             'auth-guest',
             'auth-session',
+            'auth-token'
         ],
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'auth-token'
         ],
     ];
 
@@ -59,6 +61,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth-guest' => \App\Http\Middleware\AuthGuest::class,
         'auth-session' => \App\Http\Middleware\AuthSession::class,
+        'auth-token' => \App\Http\Middleware\AuthToken::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
