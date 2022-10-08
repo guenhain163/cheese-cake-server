@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CourseApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -17,12 +18,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 $routeAuth = function () {
-    Route::get('/user', [UserController::class, 'show']);
+//    Route::get('/user', [UserController::class, 'show']);
+//    Route::get('/')
 };
 
-//$routePublic = function () {
-//    Route::get('/user', [UserController::class, 'show']);
-//};
+$routePublic = function () {
+    Route::group(["prefix" => "courses"], function () {
+        Route::get('/{course}', [CourseApiController::class, 'getDetail']);
+//        Route::get('/{course}/units/number', [CourseApiController::class, 'getNumberUnitOfCourse']);
+    });
+
+    Route::group(['prefix' => 'lessons'], function () {
+        Route::get('/{course}/{lesson}', []);
+    });
+};
 
 //Route::namespace('Admins')->group(function () {
 //
@@ -34,9 +43,9 @@ Route::middleware(['web'])->prefix('auth-web')->group($routeAuth);
 
 Route::middleware(['api', "auth:api"])->prefix('auth')->group($routeAuth);
 
-//Route::group([
-//    'middleware' => 'api',
-//], $routePublic);
+Route::group([
+    'middleware' => 'api',
+], $routePublic);
 
 Route::group([
     'middleware' => 'api',
