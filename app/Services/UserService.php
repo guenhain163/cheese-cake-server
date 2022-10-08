@@ -3,7 +3,9 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
+use Spatie\Permission\Models\Role;
 
 class UserService extends BaseService
 {
@@ -18,6 +20,15 @@ class UserService extends BaseService
 
     public function all()
     {
-        return $this->userRepository->all();
+        return $this->userRepository->model->all();
+    }
+
+    public function getUserWithPermission()
+    {
+        return $this->userRepository->model->with(['roles'])->where('role', '>', 0)->get();
+    }
+
+    public function store($user, $id) {
+        return $this->userRepository->model->where('id', '=', $id)->update($user);
     }
 }
