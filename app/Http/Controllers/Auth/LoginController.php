@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +36,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return redirect()->back()
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors([
+                'password' => 'Email hoặc mật khẩu không đúng.'
+            ]);
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|email|max:255',
+            'password' => 'required'
+        ], [
+            'email.required' => "Đây là trường bắt buộc.",
+            'email.email' => "Email không đúng định dạng.",
+            'email.max' => "Độ dài tối đa là 225 kí tự.",
+            'password.required' => "Đây là trường bắt buộc.",
+        ]);
     }
 }

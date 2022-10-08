@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Api\UserLesson\LoginAppleRequest;
-use App\Http\Requests\Api\UserLesson\LoginGoogleRequest;
+use App\Http\Requests\Api\LoginAppleRequest;
+use App\Http\Requests\Api\LoginGoogleRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -144,8 +144,6 @@ class AuthController extends Controller
 
             return redirect($linkRedirect)->withCookie(cookie("token", $token, auth('api')->factory()->getTTL()));
 
-
-
     }
 
     public function login_google(Request $request)
@@ -171,50 +169,6 @@ class AuthController extends Controller
     {
 
         $credentials = $this->google($request);
-
-        if ($credentials == null || !$token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return $this->respondWithToken($token);
-    }
-
-    public function login_apple_api(LoginAppleRequest $request)
-    {
-
-        $email = $request['email'];
-
-        $user = User::where("email", $email)->first();
-
-        if ($user) {
-            if (!$user->apple_id || $user->apple_id == '') {
-                $user->apple_id = $request['apple_id'];
-
-            } else if (!$request['apple_id'] || $user->apple_id !== $request['apple_id']) {
-                return null;
-            }
-        }
-
-        if ($user == null) {
-            $data = [
-                "name" => $request["name"],
-                "email" => $request["email"],
-                "username" => $request["email"],
-                "apple_id" => $request["apple_id"],
-                "avatar_url" => $request["avatar_url"],
-            ];
-            $data['password'] = password_hash('aGFja2Zlc3Q=', PASSWORD_BCRYPT);
-            $user = new User($data);
-            $user->save();
-            $user->assignRole("free_account");
-
-        }
-        $user->save();
-
-        $credentials = [
-            "email" => $email,
-            "password" => 'aGFja2Zlc3Q='
-        ];
 
         if ($credentials == null || !$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
