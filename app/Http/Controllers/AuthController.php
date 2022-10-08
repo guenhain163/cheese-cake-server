@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\API\ApiController;
 use App\Http\Requests\Api\LoginGoogleRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
     /**
      * Create a new AuthController instance.
@@ -15,6 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth:api', ['except' => ['login', "login_cheesecake", "login_google", "login_google_api", "loginItWeb", "login_apple_api", "login_google_oauth2"]]);
     }
 
@@ -244,7 +246,7 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
+        return $this->successResponse([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
