@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CourseApiController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => '/auth'
 ], function ($router) {
-    Route::post('login', [AuthController::class, 'login']);
+    Route::post('login', [LoginController::class, 'login']);
     Route::post("login-google", [AuthController::class, 'login_google_api']);
     Route::post("login-apple", [AuthController::class, 'login_apple_api']);
     Route::get('me', [AuthController::class, 'me']);
