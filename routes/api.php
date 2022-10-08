@@ -18,11 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 $routeAuth = function () {
-//    Route::get('/user', [UserController::class, 'show']);
-//    Route::get('/')
-};
-
-$routePublic = function () {
     Route::group(["prefix" => "courses"], function () {
         Route::get('/{course}', [CourseApiController::class, 'getDetail']);
 //        Route::get('/{course}/units/number', [CourseApiController::class, 'getNumberUnitOfCourse']);
@@ -31,6 +26,10 @@ $routePublic = function () {
     Route::group(['prefix' => 'lessons'], function () {
         Route::get('/{course}/{lesson}', []);
     });
+};
+
+$routePublic = function () {
+
 };
 
 //Route::namespace('Admins')->group(function () {
