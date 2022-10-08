@@ -16,8 +16,8 @@ class CourseApiController extends ApiController
         $this->courseService = $courseService;
     }
 
-    public function getDetail(Course $course)
+    public function getDetail(Course $course, Request $request)
     {
-        return $this->successResponse($this->courseService->getDetail($course));
+        return $this->successResponse($this->courseService->getDetail($course, $request->type_lesson));
     }
 }

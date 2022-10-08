@@ -12,12 +12,14 @@ class CourseRepository extends BaseRepository
         return Course::class;
     }
 
-    public function getDetail($course)
+    public function getDetail($course, $type_lesons)
     {
-        return $this->model->with(['units', 'units.kanji'])->find($course->id);
-//        return $this->model->with([
-//            'units',
-//            'units.lessons.kanji'
-//        ])->find($course->id);
+        $data = $this->model;
+
+        if ($type_lesons == "Kanji") {
+            $data = $data->with(['units', 'units.kanji']);
+        }
+
+        return $data->find($course->id);
     }
 }

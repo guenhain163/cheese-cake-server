@@ -14,7 +14,7 @@ class CourseService extends BaseService
         $this->courseRepository = $courseRepository;
     }
 
-    public function getDetail($course) {
-        return $this->courseRepository->getDetail($course);
+    public function getDetail($course, $type_lesons) {
+        return $this->courseRepository->getDetail($course, $type_lesons);
     }
 }
