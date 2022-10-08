@@ -25,4 +25,5 @@ class UserController extends Controller
     {
         return responseOK($this->userService->all());
     }
+    
 }

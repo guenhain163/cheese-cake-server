@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(GuestAccountSeeder::class);
         $this->call(SuperAdminAccountSeeder::class);
+        $this->call(TypeKanjiSeeder::class);
+        $this->call(UserKanjiSeeder::class);
     }
 }
